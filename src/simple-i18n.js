@@ -27,7 +27,11 @@ class SimpleI18n {
 
   translate(key, args) {
     this._validateInitialised();
-    const str = this._localeManager.getLanguage()[key];
+    let s = key.split('.');
+    let str = this._localeManager.getLanguage();
+    for (let i = 0; i < s.length; i++) {
+      str = str[s[i]];
+    }
     if (!str && str !== '') {
         return `[${MISSING_PREFIX}:'${key}']`;
     }
